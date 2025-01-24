@@ -9,6 +9,8 @@
 // Mango, and Lychee).
 
 use std::collections::HashMap;
+use std::iter::FromIterator;
+
 
 #[derive(Hash, PartialEq, Eq, Debug)]
 enum Fruit {
@@ -30,7 +32,10 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
 
     for fruit in fruit_kinds {
         // If fruit doesn't exist, insert it with some value.
-        basket.entry(fruit).or_insert(5);
+        // basket.entry(fruit).or_insert(5);
+        if !basket.contains_key(&fruit) {
+            basket.insert(fruit , 3) ;
+        }
     }
 }
 
@@ -88,7 +93,7 @@ mod tests {
 
         for fruit_kind in fruit_kinds {
             let Some(amount) = basket.get(&fruit_kind) else {
-                panic!("Fruit kind {fruit_kind:?} was not found in basket");
+                panic!("Fruit kind {:?} was not found in basket" , fruit_kind);
             };
             assert!(*amount > 0);
         }
