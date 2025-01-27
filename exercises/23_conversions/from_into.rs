@@ -2,7 +2,7 @@
 // implemented, an implementation of `Into` is automatically provided.
 // You can read more about it in the documentation:
 // https://doc.rust-lang.org/std/convert/trait.From.html
-
+use std::convert::From ;
 #[derive(Debug)]
 struct Person {
     name: String,
@@ -34,7 +34,22 @@ impl Default for Person {
 // 5. Parse the second element from the split operation into a `u8` as the age.
 // 6. If parsing the age fails, return the default of `Person`.
 impl From<&str> for Person {
-    fn from(s: &str) -> Self {}
+    fn from(s: &str) -> Self {
+        let parts: Vec<&str> = s.split(",").collect() ;
+        if parts[0].is_empty() {
+            return Person::default() ;
+        }
+        if parts.len() != 2 {
+            return Person::default() ;
+        }
+        Person {
+            name : parts[0].to_string(),
+            age : match parts[1].parse::<u8>() {
+                Ok(age) => age,
+                Err(_) => return Person::default(),
+            },
+        }
+    }
 }
 
 fn main() {
