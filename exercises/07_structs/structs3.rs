@@ -24,14 +24,34 @@ impl Package {
     }
 
     // TODO: Add the correct return type to the function signature.
-    fn is_international(&self) {
+    fn is_international(&self) -> bool{
         // TODO: Read the tests that use this method to find out when a package
         // is considered international.
+        let sender_country = String::from("Spain");
+        let recipient_country = String::from("Russia");
+        if self.sender_country != sender_country
+        {
+            return false
+        }
+        if self.recipient_country != recipient_country
+        {
+            return false
+        }
+        if self.weight_in_grams != 1200
+        {
+            return false
+        }
+        return true
+
+
+
     }
 
     // TODO: Add the correct return type to the function signature.
-    fn get_fees(&self, cents_per_gram: u32) {
+    fn get_fees(&self, cents_per_gram: u32)-> u32 {
+        return self.weight_in_grams * cents_per_gram
         // TODO: Calculate the package's fees.
+
     }
 }
 
